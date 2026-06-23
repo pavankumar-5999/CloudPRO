@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AWS SAA-C03 — 12-Week Study Plan</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --bg2: #16191f;
+    --bg3: #1c2028;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #e8eaf0;
+    --muted: #7a8099;
+    --aws: #FF9900;
+    --aws-dim: rgba(255,153,0,0.12);
+    --blue: #4a9eff;
+    --blue-dim: rgba(74,158,255,0.1);
+    --green: #3ecf8e;
+    --green-dim: rgba(62,207,142,0.1);
+    --amber: #f5a623;
+    --amber-dim: rgba(245,166,35,0.1);
+    --red: #ff6b6b;
+    --red-dim: rgba(255,107,107,0.1);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .hero {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255,153,0,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--aws);
+    margin-bottom: .5rem;
+  }
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: .4rem;
+    letter-spacing: -.5px;
+  }
+  .hero-sub {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stat-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--aws);
+  }
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  /* PHASE TABS */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    padding: 1rem 2rem 0;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .tab {
+    padding: 8px 16px;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid transparent;
+    border-bottom: none;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    background: transparent;
+    color: var(--muted);
+    transition: all .15s;
+    white-space: nowrap;
+  }
+  .tab:hover { color: var(--text); background: var(--bg3); }
+  .tab.active {
+    background: var(--bg);
+    border-color: var(--border);
+    border-bottom-color: var(--bg);
+    color: #fff;
+  }
+
+  /* MAIN CONTENT */
+  .main { padding: 1.5rem 2rem 3rem; max-width: 900px; }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* OVERVIEW GRID */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .ov-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .ov-card .num { font-size: 28px; font-weight: 700; color: var(--aws); }
+  .ov-card .lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* TIMELINE */
+  .timeline { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.5rem; }
+  .tl-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+  }
+  .tl-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .tl-content {}
+  .tl-title { font-weight: 600; font-size: 13px; color: #fff; margin-bottom: 2px; }
+  .tl-desc { font-size: 12px; color: var(--muted); }
+
+  /* PHASE HEADER */
+  .phase-intro {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .phase-intro-top { display: flex; align-items: center; gap: 10px; margin-bottom: .5rem; }
+  .phase-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: .04em;
+  }
+  .badge-blue { background: var(--blue-dim); color: var(--blue); }
+  .badge-green { background: var(--green-dim); color: var(--green); }
+  .badge-amber { background: var(--amber-dim); color: var(--amber); }
+  .phase-intro-title { font-size: 16px; font-weight: 700; color: #fff; }
+  .phase-intro-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+  /* WEEK GRID */
+  .weeks-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .week-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+  .week-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+  }
+  .week-num {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .week-topics { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+  .topic { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: var(--bg3); border: 1px solid var(--border); color: var(--text); }
+  .week-hrs { font-size: 11px; color: var(--muted); }
+
+  /* PROJECTS */
+  .projects-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .projects-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px; height: 14px;
+    background: var(--aws);
+    border-radius: 2px;
+  }
+
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 10px;
+    transition: border-color .15s;
+  }
+  .project-card:hover { border-color: var(--border2); }
+  .project-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .project-name { font-size: 14px; font-weight: 600; color: #fff; }
+  .diff {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .diff-med { background: var(--amber-dim); color: var(--amber); }
+  .diff-high { background: var(--red-dim); color: var(--red); }
+  .project-desc { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+  .skills { display: flex; flex-wrap: wrap; gap: 5px; }
+  .skill { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(74,158,255,0.2); }
+
+  /* MAAREK ALIGNMENT */
+  .maarek-box {
+    background: var(--purple-dim);
+    border: 1px solid rgba(167,139,250,0.2);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    font-size: 12px;
+    color: var(--purple);
+    margin-top: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .maarek-box strong { color: #c4b5fd; }
+
+  /* MILESTONE */
+  .milestone {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--aws);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin-top: 1rem;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .milestone strong { color: var(--aws); }
+
+  /* EXAM TIPS */
+  .tips-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
+  .tip-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .875rem 1rem;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .tip-icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: var(--aws-dim);
+    color: var(--aws);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* PROGRESS TRACKER */
+  .tracker-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+  .week-checks { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-bottom: 1.5rem; }
+  .week-check {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: .625rem .5rem;
+    cursor: pointer;
+    transition: all .15s;
+    user-select: none;
+  }
+  .week-check:hover { border-color: var(--border2); }
+  .week-check.done { border-color: var(--green); background: var(--green-dim); }
+  .wk-num { font-size: 10px; font-weight: 600; color: var(--muted); }
+  .wk-check-icon { font-size: 18px; }
+  .week-check.done .wk-num { color: var(--green); }
+  .progress-bar-wrap {
+    background: var(--bg3);
+    border-radius: 20px;
+    height: 6px;
+    margin-bottom: 6px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--aws), var(--green));
+    border-radius: 20px;
+    transition: width .4s ease;
+  }
+  .progress-label { font-size: 12px; color: var(--muted); margin-bottom: 1.5rem; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .hero { padding: 1.5rem 1rem 1.25rem; }
+    .main { padding: 1rem 1rem 2rem; }
+    .tabs { padding: 0.75rem 1rem 0; }
+    .overview-grid { grid-template-columns: 1fr 1fr 1fr; }
+    .week-grid { grid-template-columns: 1fr; }
+    .week-checks { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-eyebrow">Pav's AWS Cloud Engineer Roadmap</div>
+  <h1>SAA-C03 · 12-Week Study Plan</h1>
+  <div class="hero-sub">Aligned with Stephen Maarek's Udemy course · 6–7 hrs/week · 9 hands-on projects</div>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">12</span><span class="stat-lbl">Weeks</span></div>
+    <div class="stat"><span class="stat-num">~80</span><span class="stat-lbl">Study hours</span></div>
+    <div class="stat"><span class="stat-num">9</span><span class="stat-lbl">Projects</span></div>
+    <div class="stat"><span class="stat-num">3</span><span class="stat-lbl">Phases</span></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('overview')">Overview</button>
+  <button class="tab" onclick="showTab('p1')">Phase 1 — Foundation</button>
+  <button class="tab" onclick="showTab('p2')">Phase 2 — Architecture</button>
+  <button class="tab" onclick="showTab('p3')">Phase 3 — Pro Prep</button>
+  <button class="tab" onclick="showTab('tracker')">My Progress</button>
+</div>
+
+<div class="main">
+
+  <!-- OVERVIEW -->
+  <div id="panel-overview" class="panel active">
+    <div class="overview-grid">
+      <div class="ov-card"><div class="num">35%</div><div class="lbl">Phase 1 exam weight</div></div>
+      <div class="ov-card"><div class="num">50%</div><div class="lbl">Phase 2 exam weight</div></div>
+      <div class="ov-card"><div class="num">78%</div><div class="lbl">Target pass score</div></div>
+    </div>
+
+    <div class="weeks-title">Phase breakdown</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--blue)"></div>
+        <div class="tl-content">
+          <div class="tl-title">Phase 1 · Weeks 1–4 · Foundation</div>
+          <div class="tl-desc">IAM, EC2, S3, VPC, RDS, CloudWatch — the core services that underpin everything else. ~35% of the exam.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--green)"></div>
+        <div class="tl-content">
+          <div class="tl-title">Phase 2 · Weeks 5–8 · Architecture</div>
+          <div class="tl-desc">Auto Scaling, serverless, databases at scale, CDN, DNS — the hardest and most exam-heavy phase. ~50% of the exam.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--amber)"></div>
+        <div class="tl-content">
+          <div class="tl-title">Phase 3 · Weeks 9–12 · Pro Prep</div>
+          <div class="tl-desc">Security services, cost optimisation, IaC with Terraform, full exam simulation, portfolio polish, interview prep.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="weeks-title" style="margin-top:1.5rem">Why this plan gets you hired faster</div>
+    <div class="tips-grid">
+      <div class="tip-item"><div class="tip-icon">🎯</div>Every project maps directly to SAA-C03 exam domains — you study and build simultaneously, not separately.</div>
+      <div class="tip-item"><div class="tip-icon">💼</div>All 9 projects are GitHub-ready portfolio pieces. Link them in your CV and talk through them in interviews.</div>
+      <div class="tip-item"><div class="tip-icon">🔥</div>Medium–high difficulty means you'll have genuine technical war stories for interviews, not toy demos.</div>
+      <div class="tip-item"><div class="tip-icon">📘</div>Perfectly aligned with Stephen Maarek's Udemy course — watch his videos for theory, then immediately do the project.</div>
+      <div class="tip-item"><div class="tip-icon">🚀</div>By week 12: SAA-C03 in progress + 9 live AWS projects = a strong entry-level cloud engineer profile.</div>
+    </div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div id="panel-p1" class="panel">
+    <div class="phase-intro">
+      <div class="phase-intro-top">
+        <span class="phase-badge badge-blue">Phase 1 · Weeks 1–4</span>
+        <span class="phase-intro-title">Foundation — core services</span>
+      </div>
+      <div class="phase-intro-desc">Build a solid base across IAM, EC2, S3, VPC, RDS, and monitoring. These cover ~35% of the SAA-C03 exam. Follow Maarek's videos in order and do the projects in the same week as the corresponding section.</div>
+    </div>
+
+    <div class="weeks-title">Weekly breakdown</div>
+    <div class="week-grid">
+      <div class="week-card">
+        <div class="week-num">Week 1</div>
+        <div class="week-topics">
+          <span class="topic">IAM users & groups</span><span class="topic">Roles & policies</span><span class="topic">MFA</span><span class="topic">AWS CLI</span>
+        </div>
+        <div class="week-hrs">~6 hrs · 3 hrs theory + 3 hrs hands-on</div>
+        <div class="maarek-box"><strong>Maarek:</strong>&nbsp;IAM & AWS CLI section</div>
+      </div>
+      <div class="week-card">
+        <div class="week-num">Week 2</div>
+        <div class="week-topics">
+          <span class="topic">EC2 instance types</span><span class="topic">Security groups</span><span class="topic">EBS</span><span class="topic">AMIs</span>
+        </div>
+        <div class="week-hrs">~7 hrs · 3 hrs theory + 4 hrs hands-on</div>
+        <div class="maarek-box"><strong>Maarek:</strong>&nbsp;EC2 Fundamentals + EC2 Storage</div>
+      </div>
+      <div class="week-card">
+        <div class="week-num">Week 3</div>
+        <div class="week-topics">
+          <span class="topic">S3 buckets</span><span class="topic">Storage classes</span><span class="topic">Static hosting</span><span class="topic">Lifecycle rules</span>
+        </div>
+        <div class="week-hrs">~6 hrs · 2.5 hrs theory + 3.5 hrs hands-on</div>
+        <div class="maarek-box"><strong>Maarek:</strong>&nbsp;Amazon S3 Introduction + Advanced</div>
+      </div>
+      <div class="week-card">
+        <div class="week-num">Week 4</div>
+        <div class="week-topics">
+          <span class="topic">VPC & subnets</span><span class="topic">NAT Gateway</span><span class="topic">Route tables</span><span class="topic">RDS basics</span><span class="topic">CloudWatch</span>
+        </div>
+        <div class="week-hrs">~7 hrs · 3 hrs theory + 4 hrs hands-on</div>
+        <div class="maarek-box"><strong>Maarek:</strong>&nbsp;VPC Fundamentals + RDS + Monitoring</div>
+      </div>
+    </div>
+
+    <div class="projects-title">Phase 1 projects</div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-name">Project 1 — Secure multi-account IAM architecture</div>
+        <span class="diff diff-med">Medium</span>
+      </div>
+      <div class="project-desc">Build a realistic IAM structure: root account locked with MFA, separate dev/staging/prod IAM users, custom least-privilege policies per user, an EC2 instance role with S3 read-only access, and a cross-account role assumption flow using STS. Document everything in a GitHub README with an architecture diagram. Goes far beyond basic IAM and mirrors real enterprise setups — exactly what interviewers probe on.</div>
+      <div class="skills">
+        <span class="skill">IAM policies</span><span class="skill">Roles & STS</span><span class="skill">MFA</span><span class="skill">AWS CLI</span><span class="skill">Least privilege</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-name">Project 2 — Fault-tolerant web app on a custom VPC</div>
+        <span class="diff diff-high">High</span>
+      </div>
+      <div class="project-desc">Design and build a custom VPC from scratch: 2 public subnets across 2 AZs, 2 private subnets, Internet Gateway, NAT Gateway, and correct route tables. Deploy EC2 instances in each public subnet running a simple Node.js or Python app. Put an Application Load Balancer in front. Add CloudWatch alarms for CPU and network. This is a direct SAA-C03 HA scenario and a strong portfolio centrepiece — it proves you understand networking, multi-AZ design, and monitoring.</div>
+      <div class="skills">
+        <span class="skill">VPC</span><span class="skill">EC2</span><span class="skill">ALB</span><span class="skill">CloudWatch</span><span class="skill">Multi-AZ</span><span class="skill">NAT Gateway</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-name">Project 3 — S3 intelligent data lake with lifecycle automation</div>
+        <span class="diff diff-med">Medium</span>
+      </div>
+      <div class="project-desc">Create an S3 bucket with versioning, SSE-S3 and SSE-KMS encryption, a bucket policy blocking public access, intelligent-tiering lifecycle rules (IA after 30 days, Glacier after 90 days), and S3 access logging enabled. Write a boto3 Python script that generates pre-signed URLs for secure object sharing. Tests real storage knowledge and automation mindset — both exam-critical and genuinely CV-worthy.</div>
+      <div class="skills">
+        <span class="skill">S3</span><span class="skill">KMS encryption</span><span class="skill">Lifecycle policies</span><span class="skill">boto3</span><span class="skill">Pre-signed URLs</span>
+      </div>
+    </div>
+
+    <div class="milestone">
+      <strong>Phase 1 milestone:</strong> Complete a 65-question Tutorials Dojo practice set on Domain 1 (Design Secure Architectures). Target 70%+. If below, revisit IAM and VPC before entering Phase 2.
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div id="panel-p2" class="panel">
+    <div class="phase-intro">
+      <div class="phase-intro-top">
+        <span class="phase-badge badge-green">Phase 2 · Weeks 5–8</span>
+        <span class="phase-intro-title">Architecture — scalability & resilience</span>
+      </div>
+      <div class="phase-intro-desc">The hardest and most exam-heavy phase. You'll cover auto scaling, serverless, decoupled architectures, and databases at scale. These topics dominate the "Design Resilient Architectures" and "Design High-Performing Architectures" domains — roughly 50% of the SAA-C03.</div>
+    </div>
+
+    <div class="weeks-title">Weekly breakdown</div>
+    <div class="week-grid">
+      <div class="week-card">
+        <div class="week-num">Week 5</div>
+        <div class="week-topics">
+          <span class="topic">Auto Scaling Groups</span><span class="topic">Launch Templates</span><span class="topic">ALB/NLB/GLB</span><span class="topic">Target tracking</span>
+        </div>
+        <div class="week-hrs">~7 hrs · 3 hrs theory + 4 hrs hands-on</div>
+        <div class="maarek-box"><strong>Maarek:</strong>&nbsp;High Availability & Scalability — ELB & ASG</div>
+      </div>
+      <div class="week-card">
+        <div class="week-num">Week 6</div>
+        <div class="week-topics">
+          <span class="topic">Lambda</span><span class="topic">API Gateway</span><span class="topic">DynamoDB</span><span class="topic">SQS</span><span class="topic">SNS</span><span class="topic">EventBridge</span>
+        </div>
+        <div class="week-hrs">~7 hrs · 3 hrs theory + 4 hrs hands-on</div>
+        <div class="maarek-box"><strong>Maarek:</strong>&nbsp;Serverless Overviews + AWS Lambda</div>
+      </div>
+      <div class="week-card">
+        <div class="week-num">Week 7</div>
+        <div class="week-topics">
+          <span class="topic">RDS Multi-AZ</span><span class="topic">Read replicas</span><span class="topic">Aurora</span><span class="topic">ElastiCache</span><span class="topic">Route 53</span>
+        </div>
+        <div class="week-hrs">~6 hrs · 2.5 hrs theory + 3.5 hrs hands-on</div>
+        <div class="maarek-box"><strong>Maarek:</strong>&nbsp;RDS Advanced + Aurora + Route 53</div>
+      </div>
+      <div class="week-card">
+        <div class="week-num">Week 8</div>
+        <div class="week-topics">
+          <span class="topic">CloudFront</span><span class="topic">EFS</span><span class="topic">Step Functions</span><span class="topic">Practice exam</span>
+        </div>
+        <div class="week-hrs">~7 hrs · 2 hrs theory + 2 hrs hands-on + 3 hrs exam practice</div>
+        <div class="maarek-box"><strong>Maarek:</strong>&nbsp;CloudFront + Decoupling Applications</div>
+      </div>
+    </div>
+
+    <div class="projects-title">Phase 2 projects</div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-name">Project 4 — Auto-scaling three-tier web architecture</div>
+        <span class="diff diff-high">High</span>
+      </div>
+      <div class="project-desc">Extend Project 2 into a proper 3-tier architecture: public ALB tier → Auto Scaling Group of EC2 web servers in private subnets → RDS MySQL Multi-AZ in isolated private subnets. Configure target tracking scaling at 60% CPU threshold. Add a Bastion Host in the public subnet for DB access. Simulate load with Apache Bench and screenshot the ASG scaling event. This is a textbook SAA-C03 scenario and the exact architecture interviewers ask you to walk through.</div>
+      <div class="skills">
+        <span class="skill">ASG</span><span class="skill">ALB</span><span class="skill">RDS Multi-AZ</span><span class="skill">Private subnets</span><span class="skill">Bastion Host</span><span class="skill">Load testing</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-name">Project 5 — Serverless event-driven document processor</div>
+        <span class="diff diff-high">High</span>
+      </div>
+      <div class="project-desc">Build a fully serverless pipeline: user uploads file to S3 → S3 event triggers Lambda → Lambda extracts metadata and writes to DynamoDB → EventBridge rule fires on DynamoDB stream → second Lambda sends an SQS message → consumer Lambda processes queue and fires an SNS email notification. Deploy via CloudFormation or SAM. This proves you understand decoupled serverless design — one of the highest-weighted SAA-C03 areas and heavily featured in cloud engineer job specs.</div>
+      <div class="skills">
+        <span class="skill">Lambda</span><span class="skill">S3 events</span><span class="skill">DynamoDB</span><span class="skill">SQS</span><span class="skill">SNS</span><span class="skill">CloudFormation</span><span class="skill">EventBridge</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-name">Project 6 — Global content delivery with CloudFront + Route 53 failover</div>
+        <span class="diff diff-med">Medium</span>
+      </div>
+      <div class="project-desc">Host a static site on S3. Put a CloudFront distribution in front with HTTPS enforced via ACM and a custom origin policy. Set up Route 53 with a failover routing policy: primary record points to CloudFront, secondary to a backup S3 bucket in a different region. Add a Route 53 health check on the primary. Document the failover test with screenshots. Strong DNS and CDN knowledge is heavily tested in SAA-C03 and directly transferable to cloud ops roles.</div>
+      <div class="skills">
+        <span class="skill">CloudFront</span><span class="skill">Route 53</span><span class="skill">Failover routing</span><span class="skill">S3</span><span class="skill">ACM / HTTPS</span>
+      </div>
+    </div>
+
+    <div class="milestone">
+      <strong>Phase 2 milestone:</strong> Full timed 65-question Tutorials Dojo practice exam (65 mins). Target 72%+. Review every wrong answer thoroughly — don't enter Phase 3 until wrong answers feel like genuine gaps, not guesses.
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div id="panel-p3" class="panel">
+    <div class="phase-intro">
+      <div class="phase-intro-top">
+        <span class="phase-badge badge-amber">Phase 3 · Weeks 9–12</span>
+        <span class="phase-intro-title">Pro prep — exam sprint + portfolio</span>
+      </div>
+      <div class="phase-intro-desc">Consolidate, close gaps, and shift from student to candidate. Weeks 9–10 fill remaining SAA-C03 gaps (cost, migration, security). Weeks 11–12 are full exam simulation mode plus portfolio polish and interview prep using your own projects as examples.</div>
+    </div>
+
+    <div class="weeks-title">Weekly breakdown</div>
+    <div class="week-grid">
+      <div class="week-card">
+        <div class="week-num">Week 9</div>
+        <div class="week-topics">
+          <span class="topic">Cost Explorer</span><span class="topic">Savings Plans</span><span class="topic">Trusted Advisor</span><span class="topic">AWS Config</span>
+        </div>
+        <div class="week-hrs">~6 hrs · 2 hrs theory + 4 hrs project build</div>
+        <div class="maarek-box"><strong>Maarek:</strong>&nbsp;Other Services + Account Management, Billing & Support</div>
+      </div>
+      <div class="week-card">
+        <div class="week-num">Week 10</div>
+        <div class="week-topics">
+          <span class="topic">WAF + Shield</span><span class="topic">GuardDuty</span><span class="topic">Inspector</span><span class="topic">Security Hub</span>
+        </div>
+        <div class="week-hrs">~6 hrs · 2 hrs theory + 4 hrs project build</div>
+        <div class="maarek-box"><strong>Maarek:</strong>&nbsp;Security & Encryption + AWS Security sections</div>
+      </div>
+      <div class="week-card">
+        <div class="week-num">Week 11</div>
+        <div class="week-topics">
+          <span class="topic">2× full practice exams</span><span class="topic">Wrong answer review</span><span class="topic">GitHub polish</span>
+        </div>
+        <div class="week-hrs">~7 hrs · 4 hrs exam practice + 3 hrs portfolio</div>
+        <div class="maarek-box"><strong>Maarek:</strong>&nbsp;Practice exams included in course</div>
+      </div>
+      <div class="week-card">
+        <div class="week-num">Week 12</div>
+        <div class="week-topics">
+          <span class="topic">Final mock exam</span><span class="topic">Interview Q&A prep</span><span class="topic">CV update</span><span class="topic">Book exam</span>
+        </div>
+        <div class="week-hrs">~7 hrs · 3 hrs exam + 2 hrs interview + 2 hrs CV/apply</div>
+        <div class="maarek-box"><strong>Action:</strong>&nbsp;Book SAA-C03 exam. Start applying with "in progress" on CV.</div>
+      </div>
+    </div>
+
+    <div class="projects-title">Phase 3 projects</div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-name">Project 7 — Full stack infrastructure as code with Terraform</div>
+        <span class="diff diff-high">High</span>
+      </div>
+      <div class="project-desc">Rebuild your Project 4 three-tier architecture entirely in Terraform — zero console clicks. VPC, subnets, ASG, ALB, RDS, security groups, IAM roles, all as code. Store Terraform state in an S3 backend with DynamoDB state locking. Add input variables and outputs so it's reusable across dev/staging/prod. This single project separates you from 80% of entry-level cloud candidates. IaC fluency is the #1 differentiator hiring managers look for after the cert.</div>
+      <div class="skills">
+        <span class="skill">Terraform</span><span class="skill">IaC</span><span class="skill">S3 backend</span><span class="skill">DynamoDB locking</span><span class="skill">Modules</span><span class="skill">Variables</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-name">Project 8 — Security hardening and compliance audit</div>
+        <span class="diff diff-high">High</span>
+      </div>
+      <div class="project-desc">Enable GuardDuty, AWS Config with managed rules (MFA on root, no public S3 buckets, encrypted EBS), Security Hub, and CloudTrail across your account. Set up a WAF WebACL on your CloudFront distribution blocking SQL injection and XSS. Write a short audit report documenting every finding and its remediation. Security is 16–17% of SAA-C03 and the fastest-growing area in cloud job specs — this proves you think like a cloud security engineer, not just a builder.</div>
+      <div class="skills">
+        <span class="skill">GuardDuty</span><span class="skill">AWS Config</span><span class="skill">Security Hub</span><span class="skill">WAF</span><span class="skill">CloudTrail</span><span class="skill">Compliance</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-name">Project 9 — Cost monitoring and auto-stop FinOps dashboard</div>
+        <span class="diff diff-med">Medium</span>
+      </div>
+      <div class="project-desc">Set up AWS Cost Explorer, a monthly billing alarm in CloudWatch, a Cost and Usage Report exported to S3, and an AWS Budget with SNS alerts at 80% and 100% of budget. Use Trusted Advisor to identify idle EC2 instances and unattached EBS volumes. Write a Lambda function that auto-stops EC2 instances tagged "env:dev" outside business hours (cron EventBridge rule). This FinOps project shows commercial awareness — rare at entry level and highly valued by hiring managers.</div>
+      <div class="skills">
+        <span class="skill">Cost Explorer</span><span class="skill">Billing alarms</span><span class="skill">Lambda</span><span class="skill">EventBridge cron</span><span class="skill">FinOps</span><span class="skill">Tagging</span>
+      </div>
+    </div>
+
+    <div class="milestone">
+      <strong>Phase 3 milestone (week 12):</strong> Score 78%+ on a final timed Tutorials Dojo mock → book the real SAA-C03 exam within 2 weeks. Apply to cloud roles immediately — list SAA-C03 as "in progress" on your CV alongside your 9 GitHub project links.
+    </div>
+  </div>
+
+  <!-- PROGRESS TRACKER -->
+  <div id="panel-tracker" class="panel">
+    <div class="phase-intro" style="margin-bottom:1.5rem">
+      <div class="phase-intro-top">
+        <span class="phase-badge badge-blue">My Progress</span>
+        <span class="phase-intro-title">Week-by-week tracker</span>
+      </div>
+      <div class="phase-intro-desc">Tap a week to mark it complete. Your progress saves in your browser.</div>
+    </div>
+
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar" style="width:0%"></div></div>
+    <div class="progress-label" id="prog-label">0 of 12 weeks completed</div>
+
+    <div class="tracker-title">Phase 1 — Foundation</div>
+    <div class="week-checks">
+      <div class="week-check" id="wk1" onclick="toggleWeek(1)"><span class="wk-num">WK 1</span><span class="wk-check-icon">⬜</span></div>
+      <div class="week-check" id="wk2" onclick="toggleWeek(2)"><span class="wk-num">WK 2</span><span class="wk-check-icon">⬜</span></div>
+      <div class="week-check" id="wk3" onclick="toggleWeek(3)"><span class="wk-num">WK 3</span><span class="wk-check-icon">⬜</span></div>
+      <div class="week-check" id="wk4" onclick="toggleWeek(4)"><span class="wk-num">WK 4</span><span class="wk-check-icon">⬜</span></div>
+    </div>
+
+    <div class="tracker-title">Phase 2 — Architecture</div>
+    <div class="week-checks">
+      <div class="week-check" id="wk5" onclick="toggleWeek(5)"><span class="wk-num">WK 5</span><span class="wk-check-icon">⬜</span></div>
+      <div class="week-check" id="wk6" onclick="toggleWeek(6)"><span class="wk-num">WK 6</span><span class="wk-check-icon">⬜</span></div>
+      <div class="week-check" id="wk7" onclick="toggleWeek(7)"><span class="wk-num">WK 7</span><span class="wk-check-icon">⬜</span></div>
+      <div class="week-check" id="wk8" onclick="toggleWeek(8)"><span class="wk-num">WK 8</span><span class="wk-check-icon">⬜</span></div>
+    </div>
+
+    <div class="tracker-title">Phase 3 — Pro Prep</div>
+    <div class="week-checks">
+      <div class="week-check" id="wk9" onclick="toggleWeek(9)"><span class="wk-num">WK 9</span><span class="wk-check-icon">⬜</span></div>
+      <div class="week-check" id="wk10" onclick="toggleWeek(10)"><span class="wk-num">WK 10</span><span class="wk-check-icon">⬜</span></div>
+      <div class="week-check" id="wk11" onclick="toggleWeek(11)"><span class="wk-num">WK 11</span><span class="wk-check-icon">⬜</span></div>
+      <div class="week-check" id="wk12" onclick="toggleWeek(12)"><span class="wk-num">WK 12</span><span class="wk-check-icon">⬜</span></div>
+    </div>
+
+    <div class="tips-grid" style="margin-top:1rem">
+      <div class="tip-item"><div class="tip-icon">📚</div><strong style="color:var(--text)">Resources:</strong>&nbsp;Stephen Maarek Udemy course · Tutorials Dojo practice exams · Neal Davis SAA-C03 notes · ChathurangaVKD GitHub repo</div>
+      <div class="tip-item"><div class="tip-icon">✍️</div>Use handwritten notes for memorising AWS service limits, default behaviours, and exam gotchas — more effective than digital for retention.</div>
+      <div class="tip-item"><div class="tip-icon">📅</div>Book your SAA-C03 exam date at the end of week 10 — having a deadline sharpens focus dramatically in the final 2 weeks.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  let completed = new Set();
+
+  function toggleWeek(n) {
+    const el = document.getElementById('wk' + n);
+    const icon = el.querySelector('.wk-check-icon');
+    if (completed.has(n)) {
+      completed.delete(n);
+      el.classList.remove('done');
+      icon.textContent = '⬜';
+    } else {
+      completed.add(n);
+      el.classList.add('done');
+      icon.textContent = '✅';
+    }
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const pct = Math.round((completed.size / 12) * 100);
+    document.getElementById('prog-bar').style.width = pct + '%';
+    document.getElementById('prog-label').textContent = completed.size + ' of 12 weeks completed · ' + pct + '% through the plan';
+  }
+</script>
+
+</body>
+</html>
