@@ -1,8 +1,5 @@
 # Amazon S3 — Simple Storage Service
 
-**Course:** Stephane Maarek · SAA-C03
-**Section:** S3 (Sections 11–13)
-
 ---
 
 ## 1. What is Amazon S3?
