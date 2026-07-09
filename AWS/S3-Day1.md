@@ -72,7 +72,7 @@ Every file you store in S3 is called an **object**.
 |---------|-------------|
 | **Key** | The full path of the object — e.g. `s3://my-bucket/folder/file.txt` |
 | **Value** | The actual content/data of the file |
-| **Max object size** | **5 TB** |
+| **Max object size** | **50 TB** |
 | **Max single upload** | 5 GB — if larger, use Multipart Upload |
 | **Metadata** | Key/value pairs describing the object (set by system or user) |
 | **Tags** | Up to 10 Unicode key/value pairs — useful for security and lifecycle |
@@ -399,7 +399,7 @@ S3 Glacier Deep Archive
 > These come up directly in SAA-C03 questions
 
 1. **S3 is regional, not global** — bucket names are globally unique but buckets live in a region
-2. **Max object size = 5 TB**, must use Multipart Upload if uploading > 5 GB
+2. **Max object size = 50 TB**, must use Multipart Upload if uploading > 5 GB
 3. **There are no real directories** in S3 — everything is a key (prefix + object name)
 4. **Suspending versioning ≠ deleting old versions** — they stay
 5. **Replication only applies to new objects** after enabling — use Batch Replication for existing ones
