@@ -652,3 +652,527 @@ These types of scenarios come up directly in SAA-C03 questions:
 > "A data team wants to deliver S3 objects to analytics teams but needs to remove sensitive personal information before delivery, without storing a separate copy."
 
 ✅ **Answer:** Use **S3 Object Lambda** — transform the object on the fly during download using a Lambda function.
+
+
+---
+
+# 25. S3 Lifecycle Rules
+
+## What are Lifecycle Rules?
+
+Imagine your application uploads thousands of files to Amazon S3 every day. Initially, these files are accessed frequently, but over time they become less important or are never accessed again.
+
+Instead of manually moving or deleting old files, Amazon S3 provides **Lifecycle Rules**, which automatically manage your objects based on rules you define.
+
+Lifecycle Rules help reduce storage costs and eliminate manual maintenance.
+
+---
+
+## Types of Lifecycle Actions
+
+Amazon S3 supports two main lifecycle actions.
+
+### 1. Transition Actions
+
+Transition moves objects from one storage class to another as they become less frequently accessed.
+
+Example:
+
+```text
+Day 0      → S3 Standard
+Day 30     → S3 Standard-IA
+Day 90     → S3 Glacier Flexible Retrieval
+Day 365    → S3 Glacier Deep Archive
+```
+
+Since colder storage classes are cheaper, this helps reduce storage costs.
+
+---
+
+### 2. Expiration Actions
+
+Expiration automatically deletes objects after a specified period.
+
+Examples:
+
+- Delete temporary files after 30 days
+- Delete log files after 90 days
+- Delete backups after one year
+- Delete incomplete Multipart Uploads after 7 days
+
+---
+
+## Applying Lifecycle Rules
+
+Lifecycle Rules can be applied to:
+
+- Entire bucket
+- Objects with a specific prefix
+- Objects with specific tags
+
+Example:
+
+```text
+images/
+logs/
+backups/
+```
+
+Each folder (prefix) can have its own lifecycle policy.
+
+---
+
+## Real-World Example
+
+A photo-sharing application stores:
+
+- Original images
+- Thumbnail images
+
+Original images remain in S3 Standard.
+
+Thumbnail images are moved to Glacier after 60 days since they are rarely accessed.
+
+---
+
+## Benefits
+
+- Reduce storage costs
+- Automate storage management
+- Remove unnecessary files
+- Meet compliance requirements
+
+> 💡 **Exam Tip:** Lifecycle Rules automatically transition or delete objects based on age.
+
+---
+
+# 26. S3 Requester Pays
+
+## What is Requester Pays?
+
+Normally, the **bucket owner pays** for:
+
+- Storage
+- Requests
+- Data transfer
+
+With **Requester Pays**, the bucket owner still pays for storage, but the **requester pays for download requests and data transfer charges**.
+
+---
+
+## Why use it?
+
+Useful when sharing large datasets with many users.
+
+Instead of the bucket owner paying for every download, each user pays for their own downloads.
+
+---
+
+## Real-World Example
+
+A university publishes a **2 TB research dataset**.
+
+Thousands of researchers download it every month.
+
+Without Requester Pays:
+
+- University pays for every download.
+
+With Requester Pays:
+
+- Researchers pay for their own downloads.
+
+---
+
+## Requirements
+
+- Requester must have an AWS account.
+- Anonymous users are not allowed.
+
+> 💡 **Exam Tip:** Bucket owner pays for storage. Requester pays for download requests and data transfer.
+
+---
+
+# 27. S3 Event Notifications
+
+## What are Event Notifications?
+
+Amazon S3 can automatically notify other AWS services whenever something happens inside a bucket.
+
+These are called **S3 Event Notifications**.
+
+---
+
+## Supported Events
+
+- Object Created
+- Object Deleted
+- Object Restore
+- Replication Events
+
+---
+
+## Event Destinations
+
+Notifications can be sent to:
+
+- AWS Lambda
+- Amazon SNS
+- Amazon SQS
+- Amazon EventBridge
+
+---
+
+## Event Filtering
+
+You can trigger notifications only for certain files.
+
+Example:
+
+```text
+Only *.jpg
+Only *.png
+Only files inside images/
+```
+
+---
+
+## Real-World Example
+
+A user uploads a profile picture.
+
+S3 automatically triggers a Lambda function.
+
+Lambda creates a thumbnail and stores it back into S3.
+
+---
+
+## EventBridge Integration
+
+Amazon EventBridge provides:
+
+- Advanced filtering
+- Routing to many AWS services
+- Event-driven architectures
+
+---
+
+## Permissions
+
+Before sending notifications:
+
+- SNS requires an SNS Resource Policy.
+- SQS requires an SQS Resource Policy.
+- Lambda requires a Lambda Resource Policy.
+
+---
+
+> 💡 **Exam Tip:** S3 Event Notifications can trigger Lambda, SNS, SQS or EventBridge when objects are created, deleted or restored.
+
+---
+
+# 28. Amazon S3 Performance
+
+Amazon S3 automatically scales to support very high request rates.
+
+No manual capacity planning is required.
+
+---
+
+## Request Limits
+
+Each prefix supports approximately:
+
+- **3,500 PUT/COPY/POST/DELETE requests per second**
+- **5,500 GET/HEAD requests per second**
+
+Using multiple prefixes increases throughput automatically.
+
+---
+
+## Latency
+
+Typical first-byte latency is around **100–200 ms**.
+
+---
+
+## Performance Features
+
+Amazon S3 provides:
+
+- Multipart Upload
+- Transfer Acceleration
+- Byte Range Fetches
+
+These features improve upload and download performance.
+
+---
+
+# 29. Multipart Upload
+
+## What is Multipart Upload?
+
+Multipart Upload splits a large file into multiple smaller parts.
+
+Each part uploads independently.
+
+Once every part finishes, Amazon S3 combines them into one object.
+
+---
+
+## When should you use it?
+
+Recommended:
+
+- Files larger than **100 MB**
+
+Required:
+
+- Files larger than **5 GB**
+
+Maximum object size:
+
+- **5 TB**
+
+---
+
+## Benefits
+
+- Faster uploads
+- Parallel uploads
+- Better bandwidth utilization
+- Recover easily if upload fails
+
+---
+
+## Real-World Example
+
+Uploading a **4 TB backup**.
+
+Instead of uploading one massive file, Amazon S3 uploads hundreds or thousands of smaller chunks simultaneously.
+
+If one chunk fails, only that chunk needs to be uploaded again.
+
+---
+
+# 30. S3 Transfer Acceleration
+
+## What is Transfer Acceleration?
+
+Transfer Acceleration speeds up uploads and downloads for users located far away from the S3 bucket.
+
+Instead of sending data directly to the bucket, uploads first reach the nearest AWS Edge Location.
+
+AWS then transfers the data across its private global network.
+
+```text
+User
+   ↓
+Nearest AWS Edge Location
+   ↓
+AWS Global Network
+   ↓
+S3 Bucket
+```
+
+---
+
+## Best Use Cases
+
+- Global users
+- Large uploads
+- Media files
+- Backup uploads
+
+---
+
+## Benefits
+
+- Faster uploads
+- Lower latency
+- Better long-distance performance
+
+Works especially well with **Multipart Upload**.
+
+---
+
+# 31. Byte Range Fetches
+
+## What are Byte Range Fetches?
+
+Normally, downloading an object downloads the entire file.
+
+Byte Range Fetches allow you to download only the required portion of an object.
+
+---
+
+## Example
+
+Suppose you have a **5 GB video**.
+
+Instead of downloading the whole file, your application downloads only the first few MB required for playback.
+
+---
+
+## Benefits
+
+- Faster downloads
+- Lower bandwidth usage
+- Parallel downloads
+- Better streaming performance
+
+---
+
+## Common Use Cases
+
+- Video streaming
+- Reading large log files
+- Reading file headers
+- Scientific datasets
+
+---
+
+# 32. S3 Batch Operations
+
+## What are S3 Batch Operations?
+
+S3 Batch Operations allow you to perform the same action on millions or even billions of S3 objects using a single managed job.
+
+---
+
+## Common Operations
+
+- Copy objects
+- Add tags
+- Change ACLs
+- Encrypt objects
+- Restore Glacier objects
+- Invoke Lambda for every object
+
+---
+
+## How does it work?
+
+A Batch Operation consists of:
+
+- List of objects
+- Action to perform
+- Optional parameters
+
+Amazon S3 performs the work automatically.
+
+---
+
+## Creating the Object List
+
+The object list can be generated using:
+
+- S3 Inventory
+- CSV files
+- Amazon Athena queries
+
+---
+
+## Benefits
+
+Compared to custom scripts:
+
+- Automatic retries
+- Progress tracking
+- Completion reports
+- Error reporting
+
+---
+
+## Real-World Example
+
+Encrypt one million existing S3 objects without writing custom scripts.
+
+---
+
+> 💡 **Exam Tip:** Batch Operations perform bulk actions on millions of objects using one managed job.
+
+---
+
+# 33. S3 Storage Lens
+
+## What is S3 Storage Lens?
+
+S3 Storage Lens helps you monitor, analyze and optimize storage usage across your AWS environment.
+
+It provides dashboards and recommendations to improve storage efficiency.
+
+---
+
+## What does it monitor?
+
+Storage Lens provides metrics such as:
+
+- Total storage
+- Number of objects
+- Average object size
+- Storage growth
+- Cost optimization opportunities
+- Data protection status
+
+---
+
+## Scope
+
+Metrics can be viewed for:
+
+- AWS Organization
+- AWS Account
+- AWS Region
+- Bucket
+- Prefix
+
+---
+
+## Dashboard
+
+Amazon provides a built-in dashboard showing:
+
+- Storage trends
+- Object growth
+- Cost insights
+- Security recommendations
+
+---
+
+## Free vs Advanced Metrics
+
+### Free
+
+- Storage usage
+- Object count
+- Basic dashboards
+
+### Advanced (Paid)
+
+- Activity metrics
+- Cost optimization recommendations
+- Prefix-level insights
+- CloudWatch publishing
+
+---
+
+## Export Reports
+
+Metrics can be exported to S3 in:
+
+- CSV
+- Parquet
+
+for analysis using Amazon Athena.
+
+---
+
+## Benefits
+
+- Reduce storage costs
+- Improve security
+- Monitor storage growth
+- Optimize storage classes
+
+> 💡 **Exam Tip:** Storage Lens provides organization-wide visibility into S3 usage, helping optimize cost, storage efficiency and data protection.
