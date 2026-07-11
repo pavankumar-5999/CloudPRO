@@ -1,7 +1,7 @@
 # Amazon S3 — Advanced
 
 
-**Blog:** https://cloudpro.hashnode.dev/aws-s3-security
+**Blog:** https://cloudpro.hashnode.dev/aws-s3-advanced
 
 ---
 
