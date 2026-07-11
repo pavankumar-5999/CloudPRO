@@ -1,6 +1,5 @@
 # Amazon S3 — Basics
 
-**Course:** Stephane Maarek · SAA-C03
 **Blog:** [cloudpro.hashnode.dev](https://cloudpro.hashnode.dev/aws-cloud-journey)
 
 ---
