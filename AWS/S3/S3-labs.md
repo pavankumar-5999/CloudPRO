@@ -539,3 +539,108 @@ aws s3api put-bucket-versioning \
 5. Try to delete → blocked ❌
 6. Try via CLI:
 ```bash
+aws s3 rm s3://yourname-object-lock-lab/your-file.txt
+```
+→ Should fail ❌
+
+7. Remove legal hold → try delete again → works ✅
+
+**Test Governance Mode:**
+1. Upload another file
+2. Object actions → **Manage retention** → Governance mode → set until tomorrow
+3. Try to delete → blocked ❌
+
+**Explore:**
+- What is the difference between Legal Hold and Retention Period?
+- What is the difference between Governance and Compliance mode?
+
+**Expected result:** Object deletion blocked by Object Lock
+
+---
+
+## Lab 19 — CORS Configuration
+
+**Goal:** Configure CORS to allow cross-origin access between two buckets.
+
+**Steps:**
+1. Static website bucket from Lab 03 = your website
+2. Create second bucket: `yourname-assets-bucket` → make it public
+3. Upload an image to assets bucket
+4. Add this to your website `index.html`:
+
+```html
+<script>
+  fetch('https://yourname-assets-bucket.s3.amazonaws.com/image.jpg')
+    .then(r => console.log('Success!'))
+    .catch(e => console.log('CORS Error:', e));
+</script>
+```
+
+5. Open browser → DevTools → Console → CORS error appears ❌
+6. Go to assets bucket → **Permissions** → **CORS** → add:
+
+```json
+[
+  {
+    "AllowedOrigins": ["http://yourname-static-website.s3-website-eu-west-2.amazonaws.com"],
+    "AllowedMethods": ["GET"],
+    "AllowedHeaders": ["*"]
+  }
+]
+```
+
+7. Refresh website → CORS error gone ✅
+
+**Explore:**
+- What did the CORS error say in browser console?
+- Which bucket did you add CORS config to? (assets — not website)
+- What happens with `"AllowedOrigins": ["*"]`?
+
+**Expected result:** Cross-origin fetch works after CORS config is added
+
+---
+
+## Lab 20 — Full S3 Architecture (Capstone)
+
+**Goal:** Build a complete real-world S3 architecture combining everything.
+
+```
+Static Website (S3)
+      │
+      │ user submits upload request
+      ▼
+Pre-Signed URL ──► Private Upload Bucket
+                          │
+                    Event Notification
+                          │
+                    ┌─────┴─────┐
+                    ▼           ▼
+               SNS Email    Lambda
+               Alert        (process)
+                    │
+              Lifecycle Rule
+                    │
+              Glacier after 90 days
+                    │
+              Access Logs → Logging Bucket
+```
+
+**Steps:**
+1. Static website bucket → host upload form (Lab 03)
+2. Private upload bucket → versioning ON + SSE-KMS + Block Public Access ON
+3. Generate Pre-Signed URL via CLI for uploading
+4. Event Notification → SNS → Email on upload
+5. Lifecycle Rule → Glacier Flexible after 90 days
+6. Access Logs → logging bucket
+7. Bucket Policy → deny HTTP (HTTPS only)
+8. CORS → allow website bucket to access assets bucket
+
+**Document:**
+- Architecture diagram
+- Every service used and why
+- Errors hit and fixes
+- What you would do differently in production
+
+**Expected result:** Full working S3 architecture deployed end-to-end
+
+---
