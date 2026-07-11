@@ -1,6 +1,6 @@
 # Amazon S3 — Basics
 
-**Blog:** [cloudpro.hashnode.dev](https://cloudpro.hashnode.dev/aws-cloud-journey)
+**Blog:** https://cloudpro.hashnode.dev/aws-s3-basic
 
 ---
 
