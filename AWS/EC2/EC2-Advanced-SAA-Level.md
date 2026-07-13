@@ -1,7 +1,7 @@
 # EC2 — Solution Architect Level
 
-**Course:** Stephane Maarek · SAA-C03 · Section 6
-**Blog:** [cloudpro.hashnode.dev](https://cloudpro.hashnode.dev/aws-cloud-journey)
+
+**Blog:** 
 
 ---
 
