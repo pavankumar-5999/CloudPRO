@@ -1,6 +1,6 @@
 # Amazon EC2 — Hands-On Labs
 
-**Course:** Stephane Maarek · SAA-C03 · Sections 5 & 6
+
 **Blog:** [cloudpro.hashnode.dev](https://cloudpro.hashnode.dev/aws-cloud-journey)
 
 > 💡 Complete labs in order — each one builds on the previous.
