@@ -438,10 +438,30 @@ Ran the mount command again → worked ✅
 
 ## What I Learned
 
--
--
--
-
+**1. Difference between EBS and EFS — finally clicked!**
+ 
+Before this lab I thought both were just "storage" — but now I get it:
+ 
+- **EBS** is like a personal hard drive — only ONE instance can use it at a time. When I attached it to my EC2, only that instance could read and write to `/data`. If I wanted another instance to use it, I'd have to detach and reattach — can't share simultaneously.
+- **EFS** is like a shared Google Drive — MULTIPLE instances can mount the same file system at the same time. When I mounted the same EFS ID on both Instance A and Instance B, a file written on A instantly appeared on B. That's the real power of EFS.
+```
+EBS → one instance at a time → like a personal USB drive
+EFS → many instances at once → like a shared Google Drive
+```
+ 
+**2. Why Elastic IP actually matters**
+ 
+I didn't understand why Elastic IP was important until I actually stopped and started my instance. The public IP changed completely — which means if someone bookmarked my website URL or I had a DNS record pointing to it, it would break every single time I restarted the server.
+ 
+Elastic IP solved this — same IP before and after restart. Now I understand why every production server needs a fixed IP or a load balancer in front of it.
+ 
+**3. Security Groups are the first thing to check when something doesn't work**
+ 
+I learned this the hard way — twice:
+- Website not loading → missing port 80 in inbound rules
+- EFS mount timing out → missing port 2049 (NFS) in inbound rules
+Both times the fix was the same — add the right inbound rule. Now I know: **timeout error = always check security group first.**
+ 
 ---
 
 ## What Would Make This Production-Ready
