@@ -1,8 +1,6 @@
 # Amazon EC2 — Hands-On Labs
 
 
-**Blog:** [cloudpro.hashnode.dev](https://cloudpro.hashnode.dev/aws-cloud-journey)
-
 > 💡 Complete labs in order — each one builds on the previous.
 > Use `lab-template.md` to document every lab you complete.
 > All labs use **AWS Free Tier** (t2.micro) unless mentioned otherwise.
