@@ -436,6 +436,39 @@ Fix 2 — Added NFS rule to EFS Security Group:
 
 Ran the mount command again → worked ✅
 
+### Error 3 — Permission Denied Writing to /shared as ec2-user
+ 
+**What happened:**
+Switched from root to ec2-user → tried to create a file in `/shared` → got Permission denied ❌
+ 
+**Why it happened:**
+Root user mounted EFS and created `/shared` — by default only root has write access. ec2-user is a different user with no write permission on that folder.
+ 
+```bash
+# What the permissions looked like
+ls -la /
+drwxr-xr-x  root root  shared
+# owner (root) = read + write + execute
+# others (ec2-user) = read + execute only — NO write ❌
+```
+ 
+**How I fixed it:**
+```bash
+chmod o+rwx /shared
+```
+ 
+**What this command means:**
+ 
+| Part | Meaning |
+|------|---------|
+| `chmod` | Change permissions on a file or folder |
+| `o` | Others — everyone who is not the owner or group |
+| `+` | Add these permissions |
+| `rwx` | Read + Write + Execute |
+| `/shared` | Apply to this folder |
+ 
+This gave all other users (including ec2-user) read, write and execute permission on the shared folder ✅
+
 ---
 
 ## What I Learned
