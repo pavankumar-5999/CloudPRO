@@ -1,9 +1,6 @@
 # Amazon EC2 — Hands-On Labs
 
 
-> 💡 Complete labs in order — each one builds on the previous.
-> Use `lab-template.md` to document every lab you complete.
-> All labs use **AWS Free Tier** (t2.micro) unless mentioned otherwise.
 > ⚠️ Always **stop or terminate** instances after each lab to avoid charges.
 
 ---
