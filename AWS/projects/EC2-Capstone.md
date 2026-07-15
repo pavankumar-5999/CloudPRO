@@ -81,7 +81,7 @@ EC2 Instance (your server — running Apache web server)
 
 | Service | Why we use it |
 |---------|--------------|
-| **EC2 t2.micro** | This IS the server — it runs our website |
+| **EC2 t2.micro** | This is the server — it runs our website |
 | **Custom AMI** | So we don't install Apache every time — bake it once, reuse forever |
 | **Elastic IP** | Without this, our server's IP changes every restart — website breaks |
 | **Security Group** | Without this, anyone can access anything — this is our firewall |
