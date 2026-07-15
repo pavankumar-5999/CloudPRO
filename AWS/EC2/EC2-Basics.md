@@ -274,6 +274,60 @@ Different ways to pay for EC2 — big exam topic!
 - No billing discount — you just guarantee capacity is available
 - **Use for:** short-term critical workloads that need guaranteed capacity
 
+## The Hotel Analogy (for dedicated host and dedicated instance)
+
+```
+Shared Instances (On-Demand / Reserved)
+= Staying in a hotel — you get a room
+  but share the building with strangers
+  You don't know or care which floor or room
+
+Dedicated Instance
+= You rent an ENTIRE FLOOR just for you
+  No other AWS customer on your floor
+  But hotel still decides which room on that floor
+
+Dedicated Host
+= You BUY the ENTIRE BUILDING
+  You decide exactly which room goes where
+  Full visibility and control of the physical server
+```
+
+---
+
+## Side by Side Comparison
+
+| | Dedicated Instance | Dedicated Host |
+|--|-------------------|----------------|
+| **What's dedicated?** | Hardware dedicated to your account | Entire physical server dedicated to you |
+| **See physical server?** | ❌ No | ✅ Yes — cores, sockets visible |
+| **Control placement?** | ❌ No — AWS decides | ✅ Yes — you control it |
+| **BYOL support?** | ❌ No | ✅ Yes |
+| **Cost** | $$ | $$$ Most expensive |
+| **Per-account isolation?** | ✅ Yes | ✅ Yes |
+| **Main use case** | Compliance — no shared hardware | Compliance + software licensing |
+
+---
+
+## When to Use Each
+
+**Dedicated Instance** — your company policy says *"our EC2 must not share physical hardware with other AWS customers"* → Dedicated Instance handles that at a lower cost.
+
+**Dedicated Host** — you have an **Oracle / Windows Server / SQL Server license** tied to physical CPU cores or sockets → You need full visibility of the physical server → Dedicated Host.
+
+---
+
+## One Line to Remember
+
+> **Dedicated Instance** = isolated hardware, you don't see the server.
+> **Dedicated Host** = isolated hardware, YOU control the server + supports BYOL. 🎯
+
+---
+
+## Exam Trap
+
+> ⚠️ If the question mentions **Bring Your Own License (BYOL)** or **per-socket / per-core licensing** → answer is always **Dedicated Host**, not Dedicated Instance.
+
 ### Quick comparison
 
 ```
