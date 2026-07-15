@@ -1,9 +1,7 @@
 # EC2 Capstone Project — Build a Secure Web Server on AWS
 
 **Service:** Amazon EC2 + EBS + EFS + IAM
-**Date:**
-**Time Taken:**
-**Blog:** [cloudpro.hashnode.dev](https://cloudpro.hashnode.dev/aws-cloud-journey)
+**Date:** 15-July-2026
 
 ---
 
