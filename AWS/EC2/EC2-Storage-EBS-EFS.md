@@ -125,7 +125,7 @@ EC2 Instance
 ├── EBS Volume    ← network attached, persistent
 └── Instance Store ← physically attached, temporary
 ```
-##Note: EC2 Instance Store lose their storage if they're stopped (ephemeral)
+**Note:** EC2 Instance Store lose their storage if they're stopped (ephemeral)
 **Key differences from EBS:**
 
 | | EBS | Instance Store |
