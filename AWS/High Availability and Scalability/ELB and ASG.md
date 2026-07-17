@@ -8,18 +8,18 @@
 
 Imagine your website is running on **one EC2 instance**. What happens if:
 
-- That instance crashes? → Website goes down ❌
-- Traffic suddenly spikes (1000s of visitors)? → Instance gets overwhelmed and slows down ❌
-- You need to do maintenance on that instance? → Website goes down during that time ❌
+- That instance crashes? → Website goes down 
+- Traffic suddenly spikes (1000s of visitors)? → Instance gets overwhelmed and slows down 
+- You need to do maintenance on that instance? → Website goes down during that time 
 
 This is exactly the problem **Load Balancers** and **Auto Scaling Groups** solve.
 
 ```
 Without ELB/ASG:
-One EC2 Instance → handles ALL traffic alone → single point of failure ❌
+One EC2 Instance → handles ALL traffic alone → single point of failure 
 
 With ELB/ASG:
-Multiple EC2 Instances → traffic spread across all of them → no single point of failure ✅
+Multiple EC2 Instances → traffic spread across all of them → no single point of failure 
 ```
 
 ---
