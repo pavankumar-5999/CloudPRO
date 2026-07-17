@@ -1,8 +1,5 @@
-# CIDR & Subnet Calculations — A Plain-English Guide
+# CIDR & Subnet Calculations 
 
-This guide walks through subnetting step by step, assuming no prior networking background.
-
----
 
 ## 0. The Basics You Need First
 
