@@ -290,14 +290,6 @@ An absolute path starts at the root `/` and works from anywhere (`/var/log/syslo
 | `command not found` | Typo, or the program is not installed | Check spelling; `sudo apt install <name>` |
 | `cd: too many arguments` | A folder name has a space | Quote it: `cd "My Folder"` |
 
-### My error log (fill in as you go)
-
-| Command or error | What I did | The fix |
-|---|---|---|
-| | | |
-| | | |
-| | | |
-
 ---
 
 ## 10. End-of-day sign-off
