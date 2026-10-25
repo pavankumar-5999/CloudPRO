@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pavan Kumar | Cloud and DevOps Engineer</title>
+<meta name="description" content="Portfolio of Pavan Kumar, a junior Cloud and DevOps engineer working with AWS, Terraform, Docker and CI/CD.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<div class="mono logo">pavan<b>@</b>cloud:~$</div>
+<nav class="nav" aria-label="Main"><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#notes">Notes</a><a href="#contact">Contact</a></nav>
+</header>
+
+<main>
+<section class="hero">
+<div>
+<p class="sub">Cloud and DevOps engineer</p>
+<h1>I build and automate <span>cloud infrastructure.</span></h1>
+<p class="lead mu">I turn manual setups into repeatable, monitored and documented systems on AWS, using Terraform, Docker and CI/CD pipelines.</p>
+<div class="btns"><a class="btn pri" href="#projects">View projects</a><a class="btn" href="#">Download CV</a><a class="btn" href="#">GitHub</a></div>
+<div><span class="tag">AWS</span><span class="tag">Terraform</span><span class="tag">Docker</span><span class="tag">GitHub Actions</span><span class="tag">Linux</span><span class="tag">Python</span></div>
+</div>
+<div class="term" aria-hidden="true"><div class="bar"><i></i><i></i><i></i></div>
+<div class="body mono">
+<div><span class="p">$</span> terraform init</div>
+<div><span class="p">$</span> terraform apply</div>
+<div class="mu">  Apply complete.</div>
+<div><span class="p">$</span> git push origin main</div>
+<div class="mu">  pipeline: test, scan, build, deploy</div>
+<div><span class="p">$</span> terraform destroy</div>
+<div class="mu">  Cost under control.</div>
+</div></div>
+</section>
+
+<section id="about" class="sec">
+<h2>From testing and support to the cloud.</h2>
+<div style="display:flex;flex-wrap:wrap;gap:32px;margin-top:20px">
+<p class="mu" style="flex:1 1 420px;margin:0;font-size:17px;line-height:1.7">I started in software testing, moved into IT support, and now build cloud infrastructure. That path taught me how systems fail, how to troubleshoot them, and why good documentation matters.</p>
+<p class="mu" style="flex:1 1 420px;margin:0;font-size:17px;line-height:1.7">I hold an MSc in Advanced Computer Networks, so I design networks on purpose: private subnets, least-privilege access, and clear diagrams for every project. I am looking for a junior Cloud or DevOps engineer role.</p>
+</div>
+</section>
+
+<section id="skills" class="sec">
+<h2>Tools I build with.</h2>
+<div class="grid">
+<div class="card feat"><h3>Linux and networking</h3>
+<p>The base of everything else. I am working through a 10-day hands-on Linux course and publishing my notes below.</p>
+<div class="cols">
+<div><h4>Linux</h4><span class="tag">Ubuntu</span><span class="tag">Filesystem</span><span class="tag">Users and groups</span><span class="tag">Permissions</span><span class="tag">Bash scripting</span><span class="tag">cron</span><span class="tag">systemd</span><span class="tag">journalctl</span><span class="tag">SSH</span><span class="tag">Log analysis</span></div>
+<div><h4>Networking</h4><span class="tag">TCP/IP</span><span class="tag">DNS</span><span class="tag">Subnets and CIDR</span><span class="tag">Ports</span><span class="tag">HTTP and TLS</span><span class="tag">curl</span><span class="tag">ss</span><span class="tag">ip route</span><span class="tag">Firewalls</span></div>
+</div></div>
+<div class="card"><h3>Cloud (AWS)</h3><span class="tag">IAM</span><span class="tag">VPC</span><span class="tag">EC2</span><span class="tag">S3</span><span class="tag">RDS</span><span class="tag">CloudWatch</span></div>
+<div class="card"><h3>Infrastructure as code</h3><span class="tag">Terraform</span><span class="tag">Modules</span><span class="tag">Remote state</span></div>
+<div class="card"><h3>Containers</h3><span class="tag">Docker</span><span class="tag">ECR</span><span class="tag">ECS Fargate</span></div>
+<div class="card"><h3>CI/CD</h3><span class="tag">GitHub Actions</span><span class="tag">OIDC</span><span class="tag">Trivy</span><span class="tag">pytest</span></div>
+<div class="card"><h3>Scripting</h3><span class="tag">Bash</span><span class="tag">Python</span><span class="tag">boto3</span><span class="tag">cron</span></div>
+</div>
+</section>
+
+<section id="projects" class="sec">
+<h2>Things I have built.</h2>
+<div class="grid wide">
+<div class="card"><h3>Secure three-tier network on AWS</h3>
+<p>A VPC with public and private subnets, a load balancer, an Auto Scaling web tier and a private database, all built with Terraform.</p>
+<ul><li>Least-privilege security groups and IAM roles</li><li>One-command deploy and destroy, with a cost note</li></ul>
+<div><span class="tag">Terraform</span><span class="tag">VPC</span><span class="tag">ALB</span><span class="tag">RDS</span></div><p style="margin:8px 0 0"><a href="#">View repo</a></p></div>
+<div class="card"><h3>Containerised app with CI/CD</h3>
+<p>A Python API in Docker. Each push to GitHub runs tests, scans the image, builds it and deploys it to ECS Fargate.</p>
+<ul><li>AWS access through OIDC, no stored keys</li><li>Automatic rollback steps documented</li></ul>
+<div><span class="tag">Docker</span><span class="tag">GitHub Actions</span><span class="tag">ECS</span><span class="tag">Trivy</span></div><p style="margin:8px 0 0"><a href="#">View repo</a></p></div>
+<div class="card"><h3>Monitoring and cost automation</h3>
+<p>CloudWatch dashboards and alarms with email alerts, plus a Lambda that stops dev servers overnight to save money.</p>
+<ul><li>Runbook for every alarm</li><li>Budget alerts and tagged resources</li></ul>
+<div><span class="tag">CloudWatch</span><span class="tag">SNS</span><span class="tag">Lambda</span><span class="tag">boto3</span></div><p style="margin:8px 0 0"><a href="#">View repo</a></p></div>
+<div class="card"><h3>Linux automation scripts</h3>
+<p>Small, useful scripts: folder backups with cleanup, a website uptime checker and an AWS resource report.</p>
+<ul><li>Clear help text and error handling</li><li>Scheduled with cron</li></ul>
+<div><span class="tag">Bash</span><span class="tag">Python</span><span class="tag">Linux</span><span class="tag">cron</span></div><p style="margin:8px 0 0"><a href="#">View repo</a></p></div>
+</div>
+</section>
+
+<section id="notes" class="sec">
+<h2>What I am learning, written down.</h2>
+<p class="mu" style="margin:0;font-size:17px">A 10-day Linux course, from Day 1 to Day 10. Each day has a goal, a hands-on lab and interview questions.</p>
+<div class="grid">
+<article class="card day"><div class="n mono">Day 1</div><h3>Fundamentals and filesystem</h3><p>Kernel, shell and terminal, the directory tree, paths, wildcards and getting help.</p><a href="day-1.html">Read the Day 1 notes</a></article>
+<article class="card day"><div class="n mono">Day 2</div><h3>File operations, text, pipes and archives</h3><p>Manage files safely and combine commands to process output.</p><span class="soon">Notes coming soon</span></article>
+<article class="card day"><div class="n mono">Day 3</div><h3>Users, groups, permissions, ACLs and SSH</h3><p>Understand access control and basic secure remote access.</p><span class="soon">Notes coming soon</span></article>
+<article class="card day"><div class="n mono">Day 4</div><h3>Finding files, text processing and log analysis</h3><p>Find relevant information quickly in large files and logs.</p><span class="soon">Notes coming soon</span></article>
+<article class="card day"><div class="n mono">Day 5</div><h3>Bash scripting fundamentals</h3><p>Write small scripts with predictable input, output and control flow.</p><span class="soon">Notes coming soon</span></article>
+<article class="card day"><div class="n mono">Day 6</div><h3>Bash automation, cron, packages and shell environment</h3><p>Schedule automation and understand how scripts behave outside a terminal.</p><span class="soon">Notes coming soon</span></article>
+<article class="card day"><div class="n mono">Day 7</div><h3>Processes, services, systemd and performance</h3><p>Investigate running programs, failed services and resource pressure.</p><span class="soon">Notes coming soon</span></article>
+<article class="card day"><div class="n mono">Day 8</div><h3>Networking, DNS, ports, firewalls and SSH troubleshooting</h3><p>Trace basic connectivity problems layer by layer.</p><span class="soon">Notes coming soon</span></article>
+<article class="card day"><div class="n mono">Day 9</div><h3>Storage, filesystems, mounts, swap and boot basics</h3><p>Investigate storage problems safely and understand persistent mounts.</p><span class="soon">Notes coming soon</span></article>
+<article class="card day"><div class="n mono">Day 10</div><h3>Integrated incident lab and interview revision</h3><p>Use a repeatable troubleshooting process and show what I learned.</p><span class="soon">Notes coming soon</span></article>
+</div>
+</section>
+
+<section class="sec">
+<h2>Education and certification</h2>
+<div class="grid">
+<div class="card"><h3>AWS Certified Cloud Practitioner</h3><p style="margin:0">Amazon Web Services</p></div>
+<div class="card"><h3>MSc Advanced Computer Networks</h3><p style="margin:0">Sheffield Hallam University</p></div>
+</div>
+</section>
+
+<section id="contact" class="sec" style="padding-bottom:24px">
+<div class="card contact">
+<h2>Let us work together.</h2>
+<p class="mu" style="margin:8px auto 28px;font-size:18px;max-width:520px">I am open to junior Cloud and DevOps engineer roles in the UK.</p>
+<div class="btns"><a class="btn pri" href="mailto:pagidimarripavankumar@gmail.com">Email me</a><a class="btn" href="#">LinkedIn</a><a class="btn" href="#">GitHub</a></div>
+</div>
+</section>
+</main>
+<footer class="mono">2026 Pavan Kumar. Doncaster, UK.</footer>
+</div>
+</body>
+</html>
